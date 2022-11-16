@@ -51,7 +51,8 @@ class ItemSong extends StatelessWidget {
                               ]));
                 },
                 child: Image.network(
-                    '${track["spotify"]["album"]["images"][0]["url"]}',
+                    //'${track["spotify"]["album"]["images"][0]["url"]}',
+                    '${track["image"]}',
                     fit: BoxFit.fill),
               ),
             ),
@@ -117,9 +118,7 @@ class ItemSong extends StatelessWidget {
                                   onPressed: () {
                                     context
                                         .read<Songs_Provider>()
-                                        .deleteFavorite(track);
-                                        //TODO: Necesito eliminar de Firebase
-                                        
+                                        .deleteFavorite(track);                                        
                                     Navigator.pop(context, 'OK');
                                     //print(context.watch<Songs_Provider>().getSongList);
                                   },

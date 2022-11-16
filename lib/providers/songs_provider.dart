@@ -16,6 +16,28 @@ class Songs_Provider extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
+  void initFavoritesList() async{
+    print("Loading Favorites");
+
+     String uid = inputData();
+
+    final QuerySnapshot res = await FirebaseFirestore.instance
+        .collection('user_tracks')
+        .doc(uid)
+        .collection('favorites')
+        .get();
+
+    print("reading from database");
+
+    if(_songsList.isEmpty){
+      for (var i = 0; i < res.docs.length; i++) {
+      _songsList.add(res.docs[i].data());
+      print(_songsList[i]);
+     }
+    }
+    print("Songs List ${_songsList}");
+  }
+  
   String inputData() {
     final User? user = auth.currentUser;
     final uid = user!.uid;
@@ -23,7 +45,7 @@ class Songs_Provider extends ChangeNotifier {
 
     return uid;
   }
-
+  
   void setRecording() {
     _isRecording = !_isRecording;
     notifyListeners();

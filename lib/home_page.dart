@@ -26,10 +26,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  dynamic songsList;
-
+  //dynamic songsList;
+  
   @override
   Widget build(BuildContext context) {
+    context.read<Songs_Provider>().initFavoritesList();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -78,6 +79,10 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.black,
                     ),
                     onPressed: () {
+                      //TODO:Cargar Favoritos en List View
+                      //context.read<Songs_Provider>().initFavoritesList();
+                      //context.watch<Songs_Provider>().getSongList;
+
                       // Navegar a otra pantalla
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -112,6 +117,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 
   Future<void> searchingTrack() async {
      Record record = Record();
