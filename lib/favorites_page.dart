@@ -45,6 +45,7 @@ class Favorites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<Songs_Provider>().getSongList;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favorites'),

@@ -93,7 +93,6 @@ class Songs_Provider extends ChangeNotifier {
     print("In favorites: ${inFavorites}");
 
     if (!inFavorites) {
-      _songsList.add(song);
       db.collection("user_tracks").doc(uid).collection("favorites").add({
         "image": song["spotify"]["album"]["images"][0]["url"],
         "link": song["song_link"],
@@ -106,6 +105,16 @@ class Songs_Provider extends ChangeNotifier {
         "apple_music": song["apple_music"]["url"]
       });
       print("Added to Favorites");
+
+      final QuerySnapshot res2 = await FirebaseFirestore.instance
+        .collection('user_tracks')
+        .doc(uid)
+        .collection('favorites')
+        .get();
+
+      _songsList.add(res2.docs.last.data());
+
+      print(_songsList);
     }
 
     notifyListeners();
